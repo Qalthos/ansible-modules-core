@@ -173,6 +173,7 @@ def main():
 
 
 from ansible.module_utils.basic import *
+from ansible.module_utils.netcfg import *
 from ansible.module_utils.eos import *
 if __name__ == '__main__':
         main()
