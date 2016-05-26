@@ -165,6 +165,7 @@ def main():
         match=dict(default='line', choices=['line', 'strict', 'exact']),
         replace=dict(default='line', choices=['line', 'block']),
         force=dict(default=False, type='bool'),
+        commit=dict(default=True, type='bool'),
         config=dict()
     )
 
@@ -179,6 +180,8 @@ def main():
 
     match = module.params['match']
     replace = module.params['replace']
+
+    commit = module.params['commit']
 
     if not module.params['force']:
         contents = get_config(module)
@@ -203,7 +206,7 @@ def main():
 
         if not module.check_mode:
             commands = [str(c).strip() for c in commands]
-            response = module.configure(commands)
+            response = module.load_config(commands, commit=commit)
             result['responses'] = response
         result['changed'] = True
 
