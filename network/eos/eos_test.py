@@ -36,19 +36,6 @@ EXAMPLES = """
     test: "get_config"
 """
 
-RETURN = """
-updates:
-  description: The set of commands that will be pushed to the remote device
-  returned: always
-  type: list
-  sample: ['...', '...']
-
-responses:
-  description: The set of responses from issuing the commands on the device
-  retured: always
-  type: list
-  sample: ['...', '...']
-"""
 
 def get_config(module):
     config = module.params['config'] or dict()
@@ -69,12 +56,14 @@ def main():
     result = {}
     if test == 'disconnect':
         module.disconnect()
-        module.run_commands(['show interfaces'])
+        result['output'] = module.cli(['show interfaces'])
     elif test == 'get_config':
-        result['output'] = module.get_config()
+        result['output'] = module.config.get_config()
     elif test == 'load_config':
-        commands = ['show interfaces']
-        result['output'] = module.load_config(commands)
+        commands = ['ip access-list test', '10 permit ip any any log', 'exit']
+        result['output'] = module.config.load_config(commands, commit=True)
+        if result['output']:
+            result['changed'] = True
 
     module.exit_json(**result)
 
