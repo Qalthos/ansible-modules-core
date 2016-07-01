@@ -54,10 +54,7 @@ def main():
     test = module.params['test']
 
     result = {}
-    if test == 'disconnect':
-        module.disconnect()
-        result['output'] = module.cli(['show interfaces'])
-    elif test == 'get_config':
+    if test == 'get_config':
         result['output'] = module.config.get_config()
     elif test == 'load_config':
         commands = ['ip access-list test', '10 permit ip any any log', 'exit']
@@ -67,7 +64,6 @@ def main():
 
     module.exit_json(**result)
 
-from ansible.module_utils.shell import *
 from ansible.module_utils.eos import *
 if __name__ == '__main__':
     main()
