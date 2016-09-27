@@ -164,6 +164,10 @@ class FactsBase(object):
 
         self.load_commands()
 
+    def load_commands(self):
+        raise NotImplementedError
+
+
 class Default(FactsBase):
 
     SYSTEM_MAP = {
