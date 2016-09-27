@@ -340,7 +340,8 @@ def main():
             exclude = False
 
         if subset not in VALID_SUBSETS:
-            module.fail_json(msg='Bad subset')
+            module.fail_json(msg='Subset must be one of [%s], got %s' %
+                             (', '.join(VALID_SUBSETS), subset))
 
         if exclude:
             exclude_subsets.add(subset)
