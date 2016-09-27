@@ -366,7 +366,6 @@ def main():
             inst.populate()
             facts.update(inst.facts)
     except Exception:
-        raise
         module.exit_json(out=module.from_json(runner.items))
 
     ansible_facts = dict()
@@ -379,4 +378,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
