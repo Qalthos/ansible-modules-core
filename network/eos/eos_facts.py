@@ -141,7 +141,6 @@ ansible_net_neighbors:
 """
 import re
 
-from ansible.module_utils.basic import get_exception
 from ansible.module_utils.netcli import CommandRunner, AddCommandError
 from ansible.module_utils.six import iteritems
 from ansible.module_utils.eos import NetworkModule
